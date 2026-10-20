@@ -33,6 +33,13 @@ type openAIImagesJSONKeepalive struct {
 // StartOpenAIImagesJSONKeepalive starts whitespace heartbeats for a
 // non-streaming Images request. A non-positive interval disables the feature.
 func StartOpenAIImagesJSONKeepalive(c *gin.Context, interval time.Duration) func() {
+	return StartOpenAIJSONKeepalive(c, interval)
+}
+
+// StartOpenAIJSONKeepalive shares the synchronized JSON whitespace heartbeat
+// between buffered Images and Chat Completions requests. The existing adjusted
+// size and error helpers exclude padding from retry and response checks.
+func StartOpenAIJSONKeepalive(c *gin.Context, interval time.Duration) func() {
 	if c == nil || c.Writer == nil || interval <= 0 {
 		return func() {}
 	}

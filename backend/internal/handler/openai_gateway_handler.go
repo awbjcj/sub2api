@@ -3716,6 +3716,12 @@ func (h *OpenAIGatewayHandler) handleStreamingAwareErrorWithCode(
 	if service.StopOpenAICompactSSEKeepaliveCommitted(c) {
 		streamStarted = true
 	}
+	// JSON whitespace commits headers without turning a buffered response into
+	// SSE. Late failures must still be one parseable JSON error document.
+	if service.OpenAIImagesJSONKeepalivePresent(c) {
+		service.StopOpenAIImagesJSONKeepaliveCommitted(c)
+		streamStarted = false
+	}
 	if streamStarted {
 		if countTowardsSLA {
 			service.MarkOpsStreamFailure(c, errType, code, message, status)

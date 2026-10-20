@@ -399,7 +399,7 @@ func (s *OpenAIGatewayService) forwardAsChatCompletions(
 			(ctx == nil || ctx.Err() == nil) &&
 			(c.Request == nil || c.Request.Context().Err() == nil) &&
 			!IsResponseCommitted(c) &&
-			!c.Writer.Written() &&
+			OpenAIImagesJSONKeepaliveAdjustedWrittenSize(c) < 0 &&
 			completeErrorBody &&
 			isConvertedResponsesInputStringRejection(resp.StatusCode, respBody) {
 			logger.L().Info("openai chat_completions: structured Responses input rejected, falling back to raw chat completions",

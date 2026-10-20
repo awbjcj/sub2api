@@ -499,6 +499,10 @@ gateway:
   # Stream keepalive interval (seconds), 0=disable
   # 流式 keepalive 间隔（秒），0=禁用
   stream_keepalive_interval: 10
+  # Buffered Chat Completions JSON whitespace heartbeat (seconds; 0 disables).
+  # Enable behind proxies with idle timeouts. Late errors after a heartbeat use
+  # HTTP 200 and an OpenAI JSON error body. Environment: GATEWAY_CHAT_NONSTREAM_KEEPALIVE_INTERVAL.
+  chat_nonstream_keepalive_interval: 0
   # Image stream data interval timeout (seconds), 0=disable; independent from ordinary text streams
   # 图片流数据间隔超时（秒），0=禁用；独立于普通文本流式
   image_stream_data_interval_timeout: 900

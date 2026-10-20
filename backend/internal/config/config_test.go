@@ -1938,6 +1938,11 @@ func TestValidateConfigErrors(t *testing.T) {
 			wantErr: "gateway.connection_pool_isolation",
 		},
 		{
+			name:    "gateway chat nonstream keepalive range",
+			mutate:  func(c *Config) { c.Gateway.ChatNonstreamKeepaliveInterval = 4 },
+			wantErr: "gateway.chat_nonstream_keepalive_interval",
+		},
+		{
 			name:    "gateway stream keepalive range",
 			mutate:  func(c *Config) { c.Gateway.StreamKeepaliveInterval = 4 },
 			wantErr: "gateway.stream_keepalive_interval",
